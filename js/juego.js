@@ -37,6 +37,8 @@ Esta posición comienza siendo la [2, 2]*/
 var filaVacia = 2;
 var columnaVacia = 2;
 
+var cantidadMovimientos = document.getElementById("cantidad-movimientos");
+
 /* Esta función deberá recorrer el arreglo de instrucciones pasado por parámetro. 
 Cada elemento de este arreglo deberá ser mostrado en la lista con id 'lista-instrucciones'.
 Para eso deberás usar la función ya implementada mostrarInstruccionEnLista().
@@ -74,7 +76,7 @@ function chequearSiGano() {
 
 // Implementar alguna forma de mostrar un cartel que avise que ganaste el juego
 function mostrarCartelGanador() {
-    alert("Ganaste!");
+    alert("¡Ganaste! y solo te tomó " + movimientos.length + " movimientos. ¿Se podrá hacer en menos?");
 }
 
 /* Función que intercambia dos posiciones en la grilla.
@@ -176,6 +178,45 @@ function moverEnDireccion(direccion) {
 
 }
 
+function moverEnDireccionNoCount(direccion) {
+  var nuevaFilaPiezaVacia;
+  var nuevaColumnaPiezaVacia;
+
+  // Mueve pieza hacia la abajo, reemplazandola con la blanca
+  if (direccion === codigosDireccion.ABAJO) {
+    nuevaFilaPiezaVacia = filaVacia - 1;
+    nuevaColumnaPiezaVacia = columnaVacia;
+  }
+    
+  // Mueve pieza hacia arriba, reemplazandola con la blanca
+  else if (direccion === codigosDireccion.ARRIBA) {
+    nuevaFilaPiezaVacia = filaVacia + 1;
+    nuevaColumnaPiezaVacia = columnaVacia;
+  }
+    
+  // Mueve pieza hacia la derecha, reemplazandola con la blanca
+  else if (direccion === codigosDireccion.DERECHA) {
+    nuevaFilaPiezaVacia = filaVacia;
+    nuevaColumnaPiezaVacia = columnaVacia - 1;
+  }
+    
+  // Mueve pieza hacia la izquierda, reemplazandola con la blanca
+  else if (direccion === codigosDireccion.IZQUIERDA) {
+    nuevaFilaPiezaVacia = filaVacia;
+    nuevaColumnaPiezaVacia = columnaVacia + 1;
+  }
+
+  /* A continuación se chequea si la nueva posición es válida, si lo es, se intercambia. 
+  Para que esta parte del código funcione correctamente deberás haber implementado 
+  las funciones posicionValida, intercambiarPosicionesGrilla y actualizarPosicionVacia */
+
+    if (posicionValida(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia)) {
+        intercambiarPosiciones(filaVacia, columnaVacia, nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
+        actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
+    }
+
+}
+
 
 //////////////////////////////////////////////////////////
 ////////A CONTINUACIÓN FUNCIONES YA IMPLEMENTADAS.////////
@@ -249,15 +290,6 @@ function actualizarUltimoMovimiento(direccion) {
   }
 }
 
-// function actualizarUltimos3Movimientos() {
-//   ultimos3 = document.getElementById('ultimos3');
-//   arrayUltimos = [];
-//   arrayUltimos.push(movimientos[movimientos.length -1]);
-//   arrayUltimos.push(movimientos[movimientos.length -2]);
-//   arrayUltimos.push(movimientos[movimientos.length -3]);
-//   ultimos3.textContent = arrayUltimos;
-//   }
-
 
 /* Esta función permite agregar una instrucción a la lista
 con idLista. Se crea un elemento li dinámicamente con el texto 
@@ -283,7 +315,7 @@ function mezclarPiezas(veces) {
     ];
 
   var direccion = direcciones[Math.floor(Math.random() * direcciones.length)];
-  moverEnDireccion(direccion);
+  moverEnDireccionNoCount(direccion);
 
   setTimeout(function() {
       mezclarPiezas(veces - 1);
@@ -306,6 +338,7 @@ function capturarTeclas() {
 
       moverEnDireccion(evento.which);
       getPossibleMovements();
+      cantidadMovimientos.textContent = movimientos.length;
 
         var gano = chequearSiGano();
         if (gano) {
