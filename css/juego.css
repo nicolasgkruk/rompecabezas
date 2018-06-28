@@ -40,8 +40,12 @@ li::before {
 
 }
 
-#flecha{
+#flecha {
   font-size: 60px;
+}
+
+#proximos {
+  font-size: 40px;
 }
 
 .texto-centrado {
@@ -49,8 +53,8 @@ li::before {
 }
 
 #juego {
-  height: 600px;
-  width: 600px;
+  height: 650px;
+  width: 650px;
   background-color: #E84A5F
 }
 
@@ -70,7 +74,18 @@ li::before {
   width: 95%;
 }
 
+#titulo {
+  font-weight: bold;
+  font-size: 25px;
+  padding-bottom: 10px;
+}
+
+#tituloInstrucciones {
+  text-decoration: underline;
+}
+
 @keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+
