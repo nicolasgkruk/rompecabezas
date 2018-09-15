@@ -1,31 +1,11 @@
-/* function decirHola(nombre){
-  alert("Hola! todo bien " + nombre);
-}
-
-function miCallback(e){
-  if (e.keyCode == 65){
-    console.log("apretaste una a")
-  }
-
-  //console.log(e);
-  
-  //e.srcElement.className = "miClase";
-  this.className = "miClase";
-}
-
-var txtArea = document.getElementById("txt");
-txtArea.addEventListener("keydown", miCallback);
-
-var txtArea2 = document.getElementById("txt2");
-txtArea2.addEventListener("keydown", miCallback); */
-
 // Arreglo que contiene las intrucciones del juego 
 var instrucciones = ["Utiliza las flechas direccionales para mover las piezas.", "El objetivo del juego es formar la imagen modelo de la izquierda."];
+
 // Arreglo para ir guardando los movimientos que se vayan realizando
 var movimientos = [];
 
 // Representación de la grilla. Cada número representa a una pieza.
-// El 9 es la posición vacía
+// El 9 es la posición vacía.
 var grilla = [
     [1, 2, 3],
     [4, 5, 6],
@@ -104,12 +84,10 @@ function actualizarPosicionVacia(nuevaFila, nuevaColumna) {
 
 // Para chequear si la posición está dentro de la grilla.
 function posicionValida(fila, columna) {
-    if((fila >= 0 && fila < 3) && (columna  >= 0 && columna < 3)) {
-      return true;
-    } else {
-      return false;
-       }
+    return ((fila >= 0 && fila < 3) && (columna  >= 0 && columna < 3));
   }
+
+// Función que chequea los movimientos posibles en base a la posición vacía actual.
 
 function getPossibleMovements() {
   var proximosMovs = document.getElementById("proximos");
@@ -247,7 +225,6 @@ function intercambiarPosiciones(fila1, columna1, fila2, columna2) {
   // Intercambio posiciones en la grilla
   var pieza1 = grilla[fila1][columna1];
   var pieza2 = grilla[fila2][columna2];
-
   intercambiarPosicionesGrilla(fila1, columna1, fila2, columna2);
   intercambiarPosicionesDOM('pieza' + pieza1, 'pieza' + pieza2);
 
@@ -290,7 +267,6 @@ function actualizarUltimoMovimiento(direccion) {
   }
 }
 
-
 /* Esta función permite agregar una instrucción a la lista
 con idLista. Se crea un elemento li dinámicamente con el texto 
 pasado con el parámetro "instrucción". */
@@ -311,8 +287,7 @@ function mezclarPiezas(veces) {
   }
   
   var direcciones = [codigosDireccion.ABAJO, codigosDireccion.ARRIBA,
-      codigosDireccion.DERECHA, codigosDireccion.IZQUIERDA
-    ];
+      codigosDireccion.DERECHA, codigosDireccion.IZQUIERDA];
 
   var direccion = direcciones[Math.floor(Math.random() * direcciones.length)];
   moverEnDireccionNoCount(direccion);
